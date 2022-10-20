@@ -1,3 +1,5 @@
+// @ts-check
+
 import { Link } from 'preact-router/match';
 
 export const Navbar = () => {

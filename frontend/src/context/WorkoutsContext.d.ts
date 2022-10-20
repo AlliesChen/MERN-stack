@@ -1,4 +1,4 @@
-import type { PreactContext } from "preact";
+import type { JSX, PreactContext } from "preact";
 import type { WorkoutType } from "src/types/workouts";
 
 type WorkoutStateType = {
@@ -18,3 +18,5 @@ export interface WorkoutContextType {
 export declare const WorkoutsContext: PreactContext<WorkoutContextType>
 
 export type ReducerType = (state: WorkoutStateType, action: ReducerActionType) => {workouts: WorkoutType[]}
+
+export declare function WorkoutsContextProvider(props: {children: JSX.Element}): JSX.Element
