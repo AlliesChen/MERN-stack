@@ -9,6 +9,9 @@ export default defineConfig({
       "/api/workouts": {
         target: "http://localhost:4000/",
       },
+      "/api/user": {
+        target: "http://localhost:4000/",
+      },
     },
   },
 });

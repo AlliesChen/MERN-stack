@@ -6,3 +6,8 @@ export interface WorkoutType {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface AuthType {
+    email: string;
+    token: string;
+}
