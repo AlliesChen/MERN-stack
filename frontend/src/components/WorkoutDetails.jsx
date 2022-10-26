@@ -3,6 +3,7 @@
 // date fns
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import useWorkoutsContext from '../hooks/useWorkoutsContext';
+import useAuthContext from '../hooks/useAuthContext';
 
 /**
  * @param {{workout: import('../types/states').WorkoutType}} props
@@ -13,10 +14,19 @@ export function WorkoutDetails({ workout }) {
    * @type {import("../context/WorkoutsContext").WorkoutContextType}
    */
   const { dispatch } = useWorkoutsContext();
-
+  /**
+   * @type {import("../context/AuthContext").AuthContextType}
+   */
+  const { state: userState } = useAuthContext()
   async function handleClick() {
+    if (!userState.user) {
+      return
+    }
     const response = await fetch(`/api/workouts/${workout._id}`, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${userState.user?.token}`
+      }
     });
     /**
      * @type {import("../types/states").WorkoutType}

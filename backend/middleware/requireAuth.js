@@ -8,7 +8,7 @@ async function requireAuth(req, res, next) {
   if (!authorization) {
     return res.status(401).json({ error: 'The content is for member only. Please login or consider sign up' });
   }
-
+  // extract from "Bearer <Token>"
   const token = authorization.split(' ')[1];
 
   try {
