@@ -9,5 +9,4 @@ export interface WorkoutType {
 
 export interface AuthType {
     email: string;
-    token: string;
 }

@@ -1,6 +1,6 @@
 // @ts-check
 
-import { Router } from "preact-router";
+import { Router, route } from "preact-router";
 import useAuthContext from "./hooks/useAuthContext";
 
 // pages & components
@@ -9,10 +9,15 @@ import { Navbar } from "./components/Navbar";
 import { Login } from './pages/Login';
 import { Signup } from "./pages/Signup";
 import { Redirect } from "./components/Redirect";
+import { useEffect } from "preact/hooks";
 
 export function App() {
   const { state: userState } = useAuthContext();
-
+  useEffect(() => {
+    if (!userState.user) {
+      route('/login', true);
+    }
+  }, [])
   return (
     <div class="App">
       <Navbar />
@@ -20,7 +25,7 @@ export function App() {
         <Router>
           { userState.user ?
             <Home path="/"/> :
-            <Redirect path="/" to="login"/>
+            <Redirect path="/" to="/login"/>
           }
           { !userState.user ?
             <Login path="login" /> :

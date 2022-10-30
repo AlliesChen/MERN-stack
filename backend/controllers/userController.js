@@ -1,10 +1,12 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
-const createToken = (id) => jwt.sign({ _id: id }, process.env.SECRET, { expiresIn: '3d' });
+function createToken(id) {
+  return jwt.sign({ _id: id }, process.env.SECRET, { expiresIn: '3d' });
+}
 
 // login user
-const loginUser = async (req, res) => {
+async function loginUser(req, res) {
   const { email, password } = req.body;
 
   try {
@@ -12,15 +14,23 @@ const loginUser = async (req, res) => {
 
     // create a token
     const token = createToken(user.id);
-
-    res.status(200).json({ email, token });
+    res.status(200).cookie('token', token, {
+      httpOnly: true,
+      sameSite: 'strict',
+    }).json({ email });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
-};
+}
+
+// log out user (just clear the content of the token cookie)
+async function logoutUser(req, res) {
+  res.status(200).clearCookie('token');
+  res.end();
+}
 
 // signup user
-const signupUser = async (req, res) => {
+async function signupUser(req, res) {
   const { email, password } = req.body;
 
   try {
@@ -33,6 +43,6 @@ const signupUser = async (req, res) => {
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
-};
+}
 
-module.exports = { signupUser, loginUser };
+module.exports = { signupUser, loginUser, logoutUser };

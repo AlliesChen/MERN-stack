@@ -25,7 +25,7 @@ export default function useLogin() {
             body: JSON.stringify({email, password})
         })
         /**
-         * @type {{email: string, token: string, error: string}}
+         * @type {{email: string, error: string}}
          */
         const json = await response.json()
 

@@ -13,6 +13,8 @@ export default function useLogout() {
    */
     const { dispatch: workoutDispatch } = useWorkoutsContext()
     function logout() {
+        fetch('/api/user/logout')
+
         // remove user from storage
         localStorage.removeItem('user')
         

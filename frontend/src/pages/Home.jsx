@@ -18,11 +18,7 @@ export function Home() {
 
   useEffect(() => {
     async function fetchWorkouts() {
-      const response = await fetch('/api/workouts', {
-        headers: {
-          'Authorization': `Bearer ${userState.user?.token}`
-        }
-      });
+      const response = await fetch('/api/workouts');
       /**
        * @type {import("../types/states").WorkoutType[]}
        */
